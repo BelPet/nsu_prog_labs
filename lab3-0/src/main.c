@@ -1,10 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
-void sorting(int *numbers, int left, int right)
+void sorting(int *numbers, int left, long int right)
 {
     int pivot;
     int l_hold = left;
-    int r_hold = right;
+    long int r_hold = right;
     pivot = numbers[left];
     while (left < right)
     {
@@ -34,7 +34,7 @@ void sorting(int *numbers, int left, int right)
 }
 int main()
 {
-    int n;
+    long int n;
     int number;
     scanf("%ld", &n);
     int a[n];
