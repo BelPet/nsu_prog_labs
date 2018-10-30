@@ -34,13 +34,12 @@ void sorting(int *numbers, int left, int right)
 }
 int main()
 {
-    long int n;
+    int n;
     int number;
     scanf("%ld", &n);
     int a[n];
     for (int i = 0; i<n; i++) {
-        scanf("%d", &number);
-        a[i]=number;
+        a[i]=scanf("%d", &number);
     }
     sorting(a, 0, n-1);
     for (int i = 0; i<n; i++){
