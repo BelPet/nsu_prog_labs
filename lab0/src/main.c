@@ -57,8 +57,8 @@ long int power(int x, int y){
   return z;
 }
 static void whole(int x, int y, unsigned char *s, int point){
-  long long int sum=0, t=strlen(s)-1;
-  int l;
+  long long int sum=0;
+  int l,t=strlen(s)-1;
   if(point==0){
     for(int i=strlen(s)-1; i>=0; i--){
       if(s[i]<='9'){l=(int)(s[i]-'0');} else {
@@ -75,7 +75,7 @@ static void whole(int x, int y, unsigned char *s, int point){
           if(s[i]>='a' && s[i]<='z'){l=((int)(s[i]-'a'));l+=10;}
         }
       }
-      sum+=l*power(x, t-i);
+      sum+=l*power(x, point-i-1);
     }
   }
   long int i;
@@ -105,11 +105,9 @@ int main() {
     if(p==-1){printf("bad input\n");} else {
       if(p==0){
         whole(b1, b2, str, p);
-        } else {
-          if(b1==b2){printf("%s", str);} else {
-           whole(b1, b2, str, p);
-           fraction(b1, b2, str, p);
-          }
+      } else {
+         whole(b1, b2, str, p);
+         fraction(b1, b2, str, p);
         }
     }
   }
