@@ -106,9 +106,11 @@ int main() {
       if(p==0){
         whole(b1, b2, str, p);
         } else {
-          whole(b1, b2, str, p);
-          fraction(b1, b2, str, p);          
+          if(b1==b2){printf("%s", str);} else {
+           whole(b1, b2, str, p);
+           fraction(b1, b2, str, p);
           }
+        }
     }
   }
 }
