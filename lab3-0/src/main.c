@@ -1,48 +1,61 @@
 #include <stdio.h>
 #include <stdlib.h>
-void sorting(int *numbers, int left, long int right)
+#include <stdint.h>
+
+void siftDown(int *numbers, int root, int bottom)
 {
-    int pivot;
-    int l_hold = left;
-    long int r_hold = right;
-    pivot = numbers[left];
-    while (left < right)
-    {
-        while ((numbers[right] >= pivot) && (left < right))
-            right--;
-        if (left != right)
-        {
-            numbers[left] = numbers[right];
-            left++;
-        }
-        while ((numbers[left] <= pivot) && (left < right))
-            left++;
-        if (left != right)
-        {
-            numbers[right] = numbers[left];
-            right--;
-        }
-    }
-    numbers[left] = pivot;
-    pivot = left;
-    left = l_hold;
-    right = r_hold;
-    if (left < pivot)
-        sorting(numbers, left, pivot - 1);
-    if (right > pivot)
-        sorting(numbers, pivot + 1, right);
+int maxChild; // индекс максимального потомка
+int done = 0; // флаг того, что куча сформирована
+// Пока не дошли до последнего ряда
+while ((root * 2 + 1 <= bottom) && (!done)){
+
+if (root * 2 + 1 == bottom) // если мы в последнем ряду,
+maxChild = root * 2 + 1; // запоминаем левый потомок
+// иначе запоминаем больший потомок из двух
+else if (numbers[root * 2+1] > numbers[root * 2 + 2])
+maxChild = root * 2 + 1;
+else
+maxChild = root * 2 + 2;
+// если элемент вершины меньше максимального потомка
+if (numbers[root] < numbers[maxChild])
+{
+int temp = numbers[root]; // меняем их местами
+numbers[root] = numbers[maxChild];
+numbers[maxChild] = temp;
+root = maxChild;
 }
-int main()
+else // иначе
+done = 1; // пирамида сформирована
+}
+}
+// Функция сортировки на куче
+void heapSort(int *numbers, int array_size)
 {
-    long int n;
-    int number;
-    scanf("%ld", &n);
-    int a[n];
-    for (int i = 0; i<n; i++) {
-        a[i]=scanf("%d", &number);
-    }
-    sorting(a, 0, n-1);
-    for (int i = 0; i<n; i++){
-        printf("%d ", a[i]);}
-    return 0;
+
+
+for (int i = (array_size / 2) - 1; i >= 0; i--){
+siftDown(numbers, i, array_size - 1);
+}
+for (int i = array_size-1; i >= 1; i--){
+int tmp = numbers[0];
+numbers[0] = numbers[i];
+numbers[i] = tmp;
+siftDown(numbers, 0, i-1);
+}
+
+}
+
+int main() {
+
+int x;
+int arr[2222222];
+scanf("%d", &x);
+for (int i = 0; i < x; i++){
+scanf("%d", &arr[i]);
+}
+heapSort(arr, x);
+for (int i = 0; i < x; i++){
+printf("%d", arr[i]);
+}
+return 0;
 }
