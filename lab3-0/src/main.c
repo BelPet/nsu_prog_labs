@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include <stdint.h>
 
+int arr[2222222];
+
 void siftDown(int *numbers, int root, int bottom)
 {
 int maxChild; // индекс максимального потомка
@@ -48,7 +50,6 @@ siftDown(numbers, 0, i-1);
 int main() {
 
 int x;
-int arr[2222222];
 scanf("%d", &x);
 for (int i = 0; i < x; i++){
 scanf("%d", &arr[i]);
