@@ -14,15 +14,15 @@ void shift(int t){
 	int count = 0;
 	for (i = t - 2; i >= 0; i--)
 	{
-		if (d[abs(temp[i])] == t)
+		if (d[temp[i]] == t)
 		{
-			d[abs(temp[i])] = t - i - 1;
+			d[temp[i]] = t - i - 1;
 			count++;
 		}
 	}
 
-	if (temp[abs(t - 1)] == t)
-		d[abs(temp[t - 1])] = count + 1;
+	if (temp[t - 1] == t)
+		d[temp[t - 1]] = count + 1;
 }
 
 int boer_mure(int t, int finish){
@@ -31,7 +31,7 @@ int boer_mure(int t, int finish){
 	{
 		i = start;
 		j = t - 1;
-    printf("%d ", i + 1 +finish);
+    printf("%d ", i + 1 + finish);
 		while (text[i] == temp[j]){
 			i--;
 			j--;
@@ -48,7 +48,8 @@ int boer_mure(int t, int finish){
 int main()
 {
 	fgets(temp, 18, stdin);
-	size_t ln = strlen(temp) - 1;
+	//size_t
+  int ln = strlen(temp) - 1;
 	if (*temp && temp[ln] == '\n'){temp[ln] = '\0';}
   int s=0, t = strlen(temp);
 	shift(t);
