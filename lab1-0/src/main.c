@@ -1,39 +1,18 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <ctype.h>
 
 int main()
 {
-	FILE* file = fopen("in.txt", "r");
-
-	char temp[18];
-	fgets(temp, 18, file);
+  char temp[18];
+	fgets(temp, 18, stdin);
 
 	size_t ln = strlen(temp) - 1;
 	if (*temp && temp[ln] == '\n')
 		temp[ln] = '\0';
 
 	char text[255] = "";
-
-	while (!feof(file))
-	{
-		char s[255];
-		if (fgets(s, 255, file) == 0)
-            	    continue;
-
-		int l = strlen(s);
-		if (l > 255)
-			return 0;
-
-		strcat(text, s);
-	}
-
-	if (strlen(text) < strlen(temp))
-	{
-		return 0;
-	}
-
+  fgets(text, 255, stdin);
 	int d[255];
 
 	int t = strlen(temp);
@@ -87,8 +66,6 @@ int main()
 		else
 			start += d[abs(text[i])];
 	}
-
-	fclose(file);
 
 	return 0;
 }
