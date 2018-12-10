@@ -12,7 +12,9 @@ int main()
 		temp[ln] = '\0';
 
 	char text[255] = "";
-  fgets(text, 255, stdin);
+  int s=0;
+  while(s==0){
+    fgets(text, 255, stdin);
 	int d[255];
 
 	int t = strlen(temp);
@@ -55,10 +57,8 @@ int main()
 			i--;
 			j--;
 
-			if (j == -1)
-				break;
-
-			printf("%d ", i + 1);
+			if (j == -1){ break;}
+				printf("%d ", i + 1);
 		}
 
 		if (j != t - 1)
@@ -66,6 +66,9 @@ int main()
 		else
 			start += d[abs(text[i])];
 	}
+  if(j==-1){s+=1;}
+  }
+  
 
 	return 0;
 }
