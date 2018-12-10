@@ -2,35 +2,31 @@
 #include <stdlib.h>
 #include <stdint.h>
 
-int arr[2222222];
+int arr[2000000];
 
 void siftDown(int *numbers, int root, int bottom)
 {
-int maxChild; // индекс максимального потомка
-int done = 0; // флаг того, что куча сформирована
-// Пока не дошли до последнего ряда
+int maxChild;
+int done = 0;
 while ((root * 2 + 1 <= bottom) && (!done)){
 
-if (root * 2 + 1 == bottom) // если мы в последнем ряду,
-maxChild = root * 2 + 1; // запоминаем левый потомок
-// иначе запоминаем больший потомок из двух
+if (root * 2 + 1 == bottom)
+maxChild = root * 2 + 1;
 else if (numbers[root * 2+1] > numbers[root * 2 + 2])
 maxChild = root * 2 + 1;
 else
 maxChild = root * 2 + 2;
-// если элемент вершины меньше максимального потомка
 if (numbers[root] < numbers[maxChild])
 {
-int temp = numbers[root]; // меняем их местами
+int temp = numbers[root];
 numbers[root] = numbers[maxChild];
 numbers[maxChild] = temp;
 root = maxChild;
 }
-else // иначе
-done = 1; // пирамида сформирована
+else
+done = 1;
 }
 }
-// Функция сортировки на куче
 void heapSort(int *numbers, int array_size)
 {
 
@@ -56,7 +52,7 @@ scanf("%d", &arr[i]);
 }
 heapSort(arr, x);
 for (int i = 0; i < x; i++){
-printf("%d", arr[i]);
+printf("%d ", arr[i]);
 }
 return 0;
 }
