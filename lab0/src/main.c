@@ -1,28 +1,30 @@
 #include <stdio.h>
 #include <string.h>
 #include <math.h>
-static void fraction(int x, double y, unsigned char *s, int point){
-    double whole=0, one=1;
+static void fraction(int x, int y, unsigned char *s, int point){
+    double sum=0, one=1;
     unsigned char su[12];
-    int p=1;
+    int p=1, l;
     for(int i=point+1; i<strlen(s); i++){
-        whole+=one/pow((double)x, (double)p)*((int)s[i]-48);
+      if(s[i]<='9'){l=(int)(s[i]-'0');} else {
+        if(s[i]>='A' && s[i]<='Z'){l=(int)(s[i]-'A');l+=10;} else {
+          if(s[i]>='a' && s[i]<='z'){l=((int)(s[i]-'a'));l+=10;}
+        }
+      }
+        sum+=fabs(one/pow((double)x, (double)p)*l);
         p++;
     }
     int g=0;
     for (int i = 0; i < 12; i++) {
-        whole= whole*y;
-        if ((int) whole>=y || (whole/10) - (int) (whole / 10) == 0) { break; }
-        else {
-            if ((int) whole <= 9) { su[i]=(char)((int)whole+48); g++; }
-            else { su[i]=(char) ((int) whole + 55); g++; }
+        if(sum==0){break;} else {
+          sum=sum*y;
+          if((int)sum>9){
+            printf("%c", (char)((int)('a')+(int)sum-10));
+            } else {
+              printf("%d", (int)sum);
+          }
         }
-        whole = whole - (int) whole;
-    }
-    if(g!=0){ printf(".");
-        for (int i =0; i<g; i++){
-            printf("%c", su[i]);
-        }
+        sum-=(int)sum;
     }
 }
 int error(int x, unsigned char *s){
