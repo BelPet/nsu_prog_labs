@@ -1,14 +1,14 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<time.h>
-void sort_q(int *mass, int q, int w){
-  if(w>q){
-    int i,j,x,k;
+void quic_sort(int *mass, int x, int y){
+  if(y>x){
+    int i,j,l,k;
     srand(time(NULL));
-    i=q;
-    j=w;
-    x=i+rand()%j;
-    int a=mass[x];
+    i=x;
+    j=y;
+    l=i+rand()%j;
+    int a=mass[l];
     while(i<=j){
       while(mass[i]<a)i++;
       while(a<mass[j])j--;
@@ -20,18 +20,19 @@ void sort_q(int *mass, int q, int w){
         j--;
       }
     }
-    sort_q(mass, q, j);
-    sort_q(mass, i, w);
-  }
+    quic_sort(mass, x, j);
+    quic_sort(mass, i, y);
+  } else {return;}
 }
-int main() {
+int main(){
   int n, mass[2000000];
   scanf("%d", &n);
   for(int i=0; i<n; i++){
     scanf("%d", &mass[i]);
   }
-  sort_q(mass, 0, n-1);
+  quic_sort(mass, 0, n-1);
   for(int i=0; i<n; i++){
     printf("%d ",mass[i]);
   }
+  return 0;
 }
