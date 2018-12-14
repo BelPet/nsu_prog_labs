@@ -1,6 +1,5 @@
 #include<stdio.h>
 #include<stdlib.h>
-#include<time.h>
 int numbers[2000000];
 void swap(int x, int y){
   int z=numbers[x];
@@ -10,10 +9,9 @@ void swap(int x, int y){
 void q_sort(int start, int end){
   if(end<=start){return;}
     int i,j,l;
-    srand(time(NULL));
     i=start;
     j=end;
-    l=i+rand()%j;
+    l=(i+j)/2;
     int a=numbers[l];
     while(i<=j){
       while(numbers[i]<a)i++;
