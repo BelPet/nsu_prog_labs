@@ -1,10 +1,10 @@
 #include<stdio.h>
 #include<stdlib.h>
 int numbers[2000000];
-void swap(int *mass, int x, int y){
-  int z=mass[x];
-  mass[x]=mass[y];
-  mass[y]=z;
+void swap(int x, int y){
+  int z=numbers[x];
+  numbers[x]=numbers[y];
+  numbers[y]=z;
 }
 void q_sort(int start, int end){
   if(end<=start){return;}
@@ -17,7 +17,7 @@ void q_sort(int start, int end){
       while(numbers[i]<a)i++;
       while(a<numbers[j])j--;
       if(i<=j){
-        swap(numbers, i, j);
+        swap(i, j);
         i++;
         j--;
       }
@@ -31,7 +31,7 @@ int main(){
   for(int i=0; i<n; i++){
     scanf("%d", &numbers[i]);
   }
-  q_sort(numbers, 0, n-1);
+  q_sort(0, n-1);
   for(int i=0; i<n; i++){
     printf("%d ",numbers[i]);
   }
