@@ -1,37 +1,37 @@
-#include <stdio.h>
-int n, b[2000000];
-void sort_q(int q, int w){
-  if(w<=q){
-    return;
-  }
-  int i,j,x,k;
-  i=q;
-  j=w;
-  x=(i+j)/2;
-  int a=b[x];
-  while(i<=j){
-    while(b[i]<a)i++;
-    while(a<b[j])j--;
-    if(i<=j){
-      k=b[i];
-      b[i]=b[j];
-      b[j]=k;
-      i++;
-      j--;
+#include<stdio.h>
+#include<stdlib.h>
+#include<time.h>
+void sort_q(int *mass, int q, int w){
+  if(w>q){
+    int i,j,x,k;
+    srand(time(NULL));
+    i=q;
+    j=w;
+    x=i+rand()%j;
+    int a=mass[x];
+    while(i<=j){
+      while(mass[i]<a)i++;
+      while(a<mass[j])j--;
+      if(i<=j){
+        k=mass[i];
+        mass[i]=mass[j];
+        mass[j]=k;
+        i++;
+        j--;
+      }
     }
+    sort_q(mass, q, j);
+    sort_q(mass, i, w);
   }
-  sort_q(q,j);
-  sort_q(i,w);
 }
 int main() {
+  int n, mass[2000000];
   scanf("%d", &n);
-  int i=0;
-  while(n>i){
-    scanf("%d", &b[i]);
-    i++;
+  for(int i=0; i<n; i++){
+    scanf("%d", &mass[i]);
   }
-  sort_q(0, n-1);
-  for(i=0; i<n; i++){
-    printf("%d ",b[i]);
+  sort_q(mass, 0, n-1);
+  for(int i=0; i<n; i++){
+    printf("%d ",mass[i]);
   }
 }
