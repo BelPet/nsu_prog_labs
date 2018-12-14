@@ -1,11 +1,12 @@
 #include<stdio.h>
 #include<stdlib.h>
+int numbers[2000000];
 void swap(int *mass, int x, int y){
   int z=mass[x];
   mass[x]=mass[y];
   mass[y]=z;
 }
-void q_sort(int *numbers, int start, int end){
+void q_sort(int start, int end){
   if(end<=start){return;}
     int i,j,l;
     i=start;
@@ -21,13 +22,12 @@ void q_sort(int *numbers, int start, int end){
         j--;
       }
     }
-    q_sort(numbers, start, j);
-    q_sort(numbers, i, end);
+    q_sort(start, j);
+    q_sort(i, end);
 }
 int main(){
   int n;
   scanf("%d", &n);
-  int numbers[n];
   for(int i=0; i<n; i++){
     scanf("%d", &numbers[i]);
   }
