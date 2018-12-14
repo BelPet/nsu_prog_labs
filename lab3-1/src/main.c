@@ -1,33 +1,40 @@
 #include<stdio.h>
-int n, numbers[2000000];
-void qsort(int start, int end){
-  if(end<=start){return;}
-  int i,j,k,l;
-  i=start;
-  j=end;
-  k=(i+j)/2;
-  int a=numbers[k];
-  while(i<=j){
-    while(numbers[i]<a){i++;}
-    while(a<numbers[j]){j--;}
-    if(i<=j){
-      l=numbers[i];
-      numbers[i]=numbers[j];
-      numbers[j]=l;
-      i++;
-      j--;
+#include<stdlib.h>
+void swap(int *mass, int x, int y){
+  int z=mass[x];
+  mass[x]=mass[y];
+  mass[y]=z;
+}
+void q_sort(int *numbers, int start, int end){
+  if(end>start){
+    int i,j,l;
+    i=start;
+    j=end;
+    l=(i+j)/2;
+    int a=numbers[l];
+    while(i<=j){
+      while(numbers[i]<a)i++;
+      while(a<numbers[j])j--;
+      if(i<=j){
+        swap(numbers, i, j);
+        i++;
+        j--;
+      }
     }
-  }
-  qsort(start, j);
-  qsort(i, end);
+    q_sort(numbers, start, j);
+    q_sort(numbers, i, end);
+  } else {return;}
 }
 int main(){
-scanf("%d", &n);
-for(int i=0; i<n; i++){
-  scanf("%d", &numbers[i]);
-}
-qsort(0, n-1);
-for(int i=0; i<n; i++){
-  printf("%d ", numbers[i]);
-}
+  int n;
+  scanf("%d", &n);
+  int numbers[n];
+  for(int i=0; i<n; i++){
+    scanf("%d", &numbers[i]);
+  }
+  q_sort(numbers, 0, n-1);
+  for(int i=0; i<n; i++){
+    printf("%d ",numbers[i]);
+  }
+  return 0;
 }
