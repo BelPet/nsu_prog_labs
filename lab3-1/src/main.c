@@ -6,7 +6,7 @@ void swap(int *mass, int x, int y){
   mass[y]=z;
 }
 void q_sort(int *numbers, int start, int end){
-  if(end>start){
+  if(end<=start){return;}
     int i,j,l;
     i=start;
     j=end;
@@ -23,7 +23,6 @@ void q_sort(int *numbers, int start, int end){
     }
     q_sort(numbers, start, j);
     q_sort(numbers, i, end);
-  } else {return;}
 }
 int main(){
   int n;
