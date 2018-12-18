@@ -1,15 +1,13 @@
 #include<stdio.h>
 #include<string.h>
-
 char swap(char *numbers,int x, int y){
   char z=numbers[x];
   numbers[x]=numbers[y];
   numbers[y]=z;
   return *numbers;
 }
-
 void transposition(char *numbers, int p){
-  int t=0, length=strlen(numbers), i=length-2;
+  int length=strlen(numbers), i=length-2;
   while(i>=0){
     if(p==0){break;}
     if(numbers[i]<numbers[i+1]){
@@ -32,9 +30,8 @@ void transposition(char *numbers, int p){
     else{i--;}
   }
 }
-
 int error(char *numbers){
-  int z=0, excess=0, d[10];
+  int z=0, d[10];
   for(int i=0; i<10; i++){
     d[i]=0;
   }
@@ -45,7 +42,6 @@ int error(char *numbers){
   }
   return z;
 }
-
 int main(){
   char numbers[10];
   int p;
