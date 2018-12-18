@@ -9,8 +9,9 @@ char swap(char *numbers,int x, int y){
 void transposition(char *numbers, int p){
   int length=strlen(numbers), i=length-2;
   while(i>=0){
-    if(p==0){break;}
-    if(numbers[i]<numbers[i+1]){
+    if(p==0){ break;}
+    if(numbers[i]<numbers[i+1])
+    {
       p--;
       for(int j=length-1; j>i; j--){
         if(numbers[i]<numbers[j]){
@@ -26,19 +27,18 @@ void transposition(char *numbers, int p){
       }
       printf("%s\n", numbers);
       i=length-2;
-    }
-    else{i--;}
+    } else { i--;}
   }
 }
 int error(char *numbers){
-  int z=0, d[10];
+  int z=0, d[10], length=strlen(numbers);
   for(int i=0; i<10; i++){
     d[i]=0;
   }
-  for(int i=0; i<strlen(numbers); i++){
-    if(numbers[i]<'0' || numbers[i]>'9'){z=1; break;}
+  for(int i=0; i<length; i++){
+    if(numbers[i]<'0' || numbers[i]>'9'){ z=1; break;}
     d[numbers[i]-'0']+=1;
-    if(d[numbers[i]-'0']>1){z=1; break;}
+    if(d[numbers[i]-'0']>1){ z=1; break;}
   }
   return z;
 }
@@ -47,10 +47,7 @@ int main(){
   int p;
   scanf("%s", numbers);
   scanf("%d", &p);
-  if(error(numbers)==1){printf("bad input");}
-  else
-  {
-    transposition(numbers, p);
-  }
+  if(error(numbers)==1){ printf("bad input");}
+  else { transposition(numbers, p);}
   return 0;
 }
