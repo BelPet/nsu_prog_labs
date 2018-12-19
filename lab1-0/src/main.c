@@ -62,9 +62,9 @@ int main()
 	size_t ln = strlen(temp) - 1;
 	if (*temp && temp[ln] == '\n'){temp[ln] = '\0';}
 
-  char text[250] = "";
+  char text[10000] = "";
 
-  fread(text, sizeof(char), 250, file);
+  fread(text, sizeof(char), 10000, file);
 
 	if (strlen(text) < strlen(temp)){return 0;}
 
