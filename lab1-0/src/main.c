@@ -36,12 +36,12 @@ void boyer_moore(int *d, char *temp, char *text){
 int main()
 {
 	FILE* file = fopen("in.txt", "r");
-	char temp[17];
-	fgets(temp, 17, file);
+	char temp[18];
+	fgets(temp, 18, file);
   int n=strlen(temp)-1;
 	if(temp[n]=='\n'){temp[n]='\0';}
-  char text[100000];
-  fread(text, sizeof(char), 100000, file);
+  char text[1000000];
+  fread(text, sizeof(char), 1000000, file);
 	if(strlen(text)<strlen(temp)){return 0;}
 	int d[256];
   shift(temp, d);
