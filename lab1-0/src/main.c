@@ -40,8 +40,8 @@ int main()
 	fgets(temp, 18, file);
   int n=strlen(temp)-1;
 	if(temp[n]=='\n'){temp[n]='\0';}
-  char text[2084600];
-  fread(text, sizeof(char), 2084600, file);
+  char text[2084690];
+  fread(text, sizeof(char), 2084690, file);
 	if(strlen(text)<strlen(temp)){return 0;}
 	int d[256];
   shift(temp, d);
