@@ -1,58 +1,45 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <stdint.h>
+#include<stdio.h>
+#include<stdlib.h>
 
-int arr[2000000];
-
-void siftDown(int *numbers, int root, int bottom)
-{
-int maxChild;
-int done = 0;
-while ((root * 2 + 1 <= bottom) && (!done)){
-
-if (root * 2 + 1 == bottom)
-maxChild = root * 2 + 1;
-else if (numbers[root * 2+1] > numbers[root * 2 + 2])
-maxChild = root * 2 + 1;
-else
-maxChild = root * 2 + 2;
-if (numbers[root] < numbers[maxChild])
-{
-int temp = numbers[root];
-numbers[root] = numbers[maxChild];
-numbers[maxChild] = temp;
-root = maxChild;
+void sift_down(int *numbers, int root, int bottom){
+  int max_child, done=0;
+  while((root*2+1<=bottom) && (!done)){
+    if(root*2+1==bottom)
+    max_child=root*2+1;
+    else 
+    if(numbers[root *2+1]>numbers[root*2+2])
+    max_child=root*2+1;
+    else
+    max_child=root*2+2;
+    if(numbers[root]<numbers[max_child]){
+      int temp=numbers[root];
+      numbers[root]=numbers[max_child];
+      numbers[max_child]=temp;
+      root=max_child;
+    } else {done=1;}
+  }
 }
-else
-done = 1;
+void heap_sort(int *numbers, int n){
+  for(int i=(n/2)-1; i>=0; i--){
+    sift_down(numbers, i, n-1);
+  }
+  for(int i=n-1; i>=1; i--){
+    int tmp=numbers[0];
+    numbers[0]=numbers[i];
+    numbers[i]=tmp;
+    sift_down(numbers, 0, i-1);
+  }
 }
-}
-void heapSort(int *numbers, int array_size)
-{
-
-
-for (int i = (array_size / 2) - 1; i >= 0; i--){
-siftDown(numbers, i, array_size - 1);
-}
-for (int i = array_size-1; i >= 1; i--){
-int tmp = numbers[0];
-numbers[0] = numbers[i];
-numbers[i] = tmp;
-siftDown(numbers, 0, i-1);
-}
-
-}
-
-int main() {
-
-int x;
-scanf("%d", &x);
-for (int i = 0; i < x; i++){
-scanf("%d", &arr[i]);
-}
-heapSort(arr, x);
-for (int i = 0; i < x; i++){
-printf("%d ", arr[i]);
-}
-return 0;
+int main(){
+  int n;
+  int numbers[2000000];
+  scanf("%d", &n);
+  for(int i=0; i<n; i++){
+    scanf("%d", &numbers[i]);
+  }
+  heap_sort(numbers, n);
+  for(int i=0; i<n; i++){
+    printf("%d ", numbers[i]);
+  }
+  return 0;
 }
