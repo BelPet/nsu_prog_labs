@@ -1,7 +1,9 @@
 #include<stdio.h>
 #include<stdlib.h>
 
-void sift_down(int *numbers, int root, int bottom){
+int numbers[2000000];
+
+void sift_down(int root, int bottom){
   int max_child, done=0;
   while((root*2+1<=bottom) && (!done)){
     if(root*2+1==bottom)
@@ -19,7 +21,7 @@ void sift_down(int *numbers, int root, int bottom){
     } else {done=1;}
   }
 }
-void heap_sort(int *numbers, int n){
+void heap_sort(int n){
   for(int i=(n/2)-1; i>=0; i--){
     sift_down(numbers, i, n-1);
   }
@@ -32,12 +34,11 @@ void heap_sort(int *numbers, int n){
 }
 int main(){
   int n;
-  int numbers[2000000];
   scanf("%d", &n);
   for(int i=0; i<n; i++){
     scanf("%d", &numbers[i]);
   }
-  heap_sort(numbers, n);
+  heap_sort(n);
   for(int i=0; i<n; i++){
     printf("%d ", numbers[i]);
   }
