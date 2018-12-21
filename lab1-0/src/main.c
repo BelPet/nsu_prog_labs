@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-  char text[2200000];
+  char text[2100000];
 
 void shift(char temp, int *d){
   int t=strlen(temp);
