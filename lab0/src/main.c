@@ -27,7 +27,7 @@ int error(int b1, int b2, char *number){
   for(int i=0; i<length; i++){
     if(number[i]!='.')
     {
-      if(numeral(number[i])>b1)
+      if(numeral(number[i])>=b1)
         return -1;
     }
     else
