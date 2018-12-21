@@ -7,23 +7,20 @@ void swap(int x, int y){
   numbers[y]=z;
 }
 void q_sort(int start, int end){
-  if(end<=start){return;}
-    int i,j,l;
-    i=start;
-    j=end;
-    l=(i+j)/2;
-    int a=numbers[l];
-    while(i<=j){
-      while(numbers[i]<a)i++;
-      while(a<numbers[j])j--;
-      if(i<=j){
-        swap(i, j);
-        i++;
-        j--;
-      }
+  if(end<=start)
+    return;
+  int i=start, j=end, l=(i+j)/2, a=numbers[l];
+  while(i<=j){
+    while(numbers[i]<a){i++;}
+    while(a<numbers[j]){j--;}
+    if(i<=j){
+      swap(i, j);
+      i++;
+      j--;
     }
-    q_sort(start, j);
-    q_sort(i, end);
+  }
+  q_sort(start, j);
+  q_sort(i, end);
 }
 int main(){
   int n;
