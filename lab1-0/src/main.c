@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-  char text[2100000];
+  char text[2190000];
 void shift(char *temp, int *d){
   int t=strlen(temp);
 	for(int i=0; i<256; i++){
@@ -41,7 +41,7 @@ int main()
 	fgets(temp, 18, file);
   int n=strlen(temp)-1;
 	if(temp[n]=='\n'){temp[n]='\0';}
-  fread(text, sizeof(char), 2100000, file);
+  fread(text, sizeof(char), 2190000, file);
 	if(strlen(text)<strlen(temp)){return 0;}
 	int d[256];
   shift(temp, d);
