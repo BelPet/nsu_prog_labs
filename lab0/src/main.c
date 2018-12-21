@@ -48,7 +48,7 @@ int error(int b1, int b2, char *number){
 }
 void build_whole(int b1, int b2, char *number, int point){
   long long int sum=0;
-  if(point==1 && number[0]=='0')
+  if(number[0]=='0')
     printf("%d", 0);
   else
   {
