@@ -1,123 +1,159 @@
-#include <stdio.h>
-#include <string.h>
-#include <math.h>
-static void fraction(int x, int y, unsigned char *s, int point){
-  int zero=0, big=0;
-  for(int i=point+1; i<strlen(s); i++){
-        if(s[i]<='9'){big=(int)(s[i]-'0');} else {
-          if(s[i]>='A' && s[i]<='Z'){big=(int)(s[i]-'A');big+=10;} else {
-            if(s[i]>='a' && s[i]<='z'){big=((int)(s[i]-'a'));big+=10;}
-          }
-        }
-    if(big!=0){zero=1;}}
-  if(zero==1){
-    double sum=0, one=1;
-    unsigned char su[12];
-    int p=1, l;
-    for(int i=point+1; i<strlen(s); i++){
-      if(s[i]<='9'){l=(int)(s[i]-'0');} else {
-        if(s[i]>='A' && s[i]<='Z'){l=(int)(s[i]-'A');l+=10;} else {
-          if(s[i]>='a' && s[i]<='z'){l=((int)(s[i]-'a'));l+=10;}
-        }
-      }
-        sum+=fabs(one/pow((double)x, (double)p)*l);
-        p++;
-    }
-      printf(".");
-      for (int i = 0; i < 12; i++) {
-        if(sum==0){break;} else {
-          sum=sum*y;
-          if((int)sum>9){
-            printf("%c", (char)((int)('a')+(int)sum-10));
-            } else {
-              printf("%d", (int)sum);
-          }
-        }
-        sum-=(int)sum;
-    }
-  }
-}
-int error(int x, unsigned char *s){
-  if(s[0]=='.' || (s[0]=='0' && s[1]!='.') || s[strlen(s)-1]=='.')
-  { return -1;} else
+#include<stdio.h>
+#include<string.h>
+#include<math.h>
+
+int numeral(char ch){
+  if(ch>='0' && ch<='9')
   {
-    int point=0, big=0, zero=0;
-    for(int i=0; i<strlen(s); i++){
-      if(s[i]!='.')
-      {
-        if(s[i]<='9'){big=(int)(s[i]-'0');} else {
-          if(s[i]>='A' && s[i]<='Z'){big=(int)(s[i]-'A');big+=10;} else {
-            if(s[i]>='a' && s[i]<='z'){big=((int)(s[i]-'a'));big+=10;}
-          }
-        }
-        if(big!=0){ zero=1;}
-        if(big>=x){ point=-1; break;}
-        big=0;
-      } else {
-        big+=1;
-        point=i;
-      }
+    return (int)(ch-'0');
+  }
+  else
+  {
+    if(ch>='A' && ch<='Z')
+    {
+      return (int)(ch-'A')+10;
     }
-    if(point==-1 || big>1 || zero==0){ return -1;} else {
-      if(point==0){ return 0;} else {
-        return point;}
+    else
+    {
+      if(ch>='a' && ch<='z')
+      {
+        return (int)(ch-'a')+10;
+      }
+      else
+      {
+        return 20;
+      }
     }
   }
 }
-static void whole(int x, int y, unsigned char *s, int point){
+int error(int b1, int b2, char *number){
+  int length=strlen(number), second_point=0, point=0;
+  if(b1<2 || b1>16 || b2<2 || b2>16)
+  {
+    return -1;
+  }
+  if(number[0]=='.' ||  number[length-1]=='.')
+  {
+    return -1;
+  }
+  for(int i=0; i<length; i++){
+    if(number[i]!='.')
+    {
+      if(numeral(number[i])>b1)
+      {
+        return -1;
+      }
+    }
+    else
+    {
+      second_point+=1;
+      point=i;
+    }
+  }
+  if(point!=0)
+  {
+    if(number[0]=='0' && point!=1)
+    {
+      return -1;
+    }
+  }
+  if(second_point>1)
+  {
+    return -1;
+  }
+  else
+  {
+    return point;
+  }
+}
+void build_whole(int b1, int b2, char *number, int point){
   long long int sum=0;
-  int l,t=strlen(s)-1;
-  if(point==0){
-    for(int i=strlen(s)-1; i>=0; i--){
-      if(s[i]<='9'){l=(int)(s[i]-'0');} else {
-        if(s[i]>='A' && s[i]<='Z'){l=(int)(s[i]-'A');l+=10;} else {
-          if(s[i]>='a' && s[i]<='z'){l=((int)(s[i]-'a'));l+=10;}
-        }
-      }
-      sum+=l*pow((double)x, (double)(t-i));
+  if(point==1 && number[0]=='0')
+  {
+    printf("%d", 0);
+  }
+  else
+  {
+    if(point==0){
+     point=strlen(number);
     }
-  }else{
     for(int i=point-1; i>=0; i--){
-      if(s[i]<='9'){l=(int)(s[i]-'0');} else {
-        if(s[i]>='A' && s[i]<='Z'){l=(int)(s[i]-'A');l+=10;} else {
-          if(s[i]>='a' && s[i]<='z'){l=((int)(s[i]-'a'));l+=10;}
-        }
+      sum+=numeral(number[i])*pow((double)b1, (double)(point-i-1));
+    }
+    long int i;
+    int mass[52];
+    for(int i=0; i<52; i++){
+      mass[i]=-1;
+    }
+    int j=0, a=(int)'a';
+    while(sum>0){
+      mass[j]=sum % b2;
+      sum/=b2;
+      j++;
+    }
+    for(int i=j-1; i>=0; i--){
+      if(mass[i]>9)
+      {
+        printf("%c", (char)(mass[i]-10+'a'));
       }
-      sum+=l*pow((double)x, (double)point-i-1);
+      else
+      {
+        printf("%d", mass[i]);
+      }
     }
   }
-  if(sum==0){printf("%d", sum);}
-  long int i;
-  int mass[52];
-  for(int i=0; i<52; i++){
-    mass[i]=-1;
+}
+void build_fraction(int b1, int b2, char *number, int point){
+  double sum=0;
+  int length=strlen(number), j=0;
+  if(point==0)
+  {
+    return;
   }
-  int j=0, a=(int)'a';
-  while(sum>0){
-    mass[j]=sum % y;
-    sum/=y;
+  for(int i=point+1; i<length; i++){
+    sum=sum*b1+numeral(number[i]);
     j++;
   }
-  for(int i=j-1; i>=0; i--){
-    if(mass[i]>9){printf("%c", (char)(mass[i]-10+'a'));} else { printf("%d", mass[i]);
+  if(sum==0)
+  {
+    return;
+  }
+  sum/=pow((double)b1, (double)j);
+  printf(".");
+  for(int i=0; i<12; i++) {
+    if(sum==0)
+    {
+      return;
     }
+    else
+    {
+      sum*=b2;
+      if((int)sum>9)
+      {
+        printf("%c", (char)((int)('a')+(int)sum-10));
+      }
+      else
+      {
+        printf("%d", (int)sum);
+      }
+    }
+    sum-=(int)sum;
   }
 }
-int main() {
+int main(){
   int b1, b2;
-  scanf("%d", &b1);
-  scanf("%d", &b2);
-  if(b1<2 || b1>16 || b2<2 || b2>16){printf("bad input\n");} else {
-    unsigned char str[13];
-    scanf("%s", str);
-    int p=error(b1, str);
-    if(p==-1){printf("bad input\n");} else {
-      if(p==0){
-        whole(b1, b2, str, p);
-      } else {
-         whole(b1, b2, str, p);
-         fraction(b1, b2, str, p);
-        }
-    }
+  scanf("%d%d", &b1, &b2);
+  char number[14];
+  scanf("%s", number);
+  int point=error(b1, b2, number);
+  if(point==-1)
+  {
+    printf("bad input");
   }
+  else
+  {
+    build_whole(b1, b2, number, point);
+    build_fraction(b1, b2, number, point);
+  }
+  return 0;
 }
