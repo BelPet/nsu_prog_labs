@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-  char text[2190000];
+  char text[2199000];
 void shift(char *temp, int *d){
   int t=strlen(temp);
 	for(int i=0; i<256; i++){
