@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-  char text[2199000];
+  
 void shift(char *temp, int *d){
   int t=strlen(temp);
 	for(int i=0; i<256; i++){
@@ -19,7 +19,7 @@ void shift(char *temp, int *d){
 	if(temp[abs(t-1)]==t)
 		d[abs(temp[t-1])]=j+1;
 }
-void boyer_moore(int *d, char *temp){
+void boyer_moore(int *d, char *temp, char *text){
 	int t=strlen(temp), len=strlen(text), start=t-1;
 	while(start<len){
 		int i=start, j=t-1;
@@ -41,11 +41,13 @@ int main()
 	fgets(temp, 18, file);
   int n=strlen(temp)-1;
 	if(temp[n]=='\n'){temp[n]='\0';}
-  fread(text, sizeof(char), 2199000, file);
+  char *text=(char*)malloc(sizeof(3000000));
+  fread(text, sizeof(char), 3000000, file);
 	if(strlen(text)<strlen(temp)){return 0;}
 	int d[256];
   shift(temp, d);
-  boyer_moore(d, temp);
+  boyer_moore(d, temp, text);
+  free(text);
 	fclose(file);
 	return 0;
 }
