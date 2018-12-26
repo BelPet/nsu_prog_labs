@@ -2,8 +2,9 @@
 #include<string.h>
 #include<math.h>
 
-#define MAX_NUMBER 44//Максимальное колличество цифр в искомом числе
-
+#define MAX_NUMBER 44//Максимальное колличество символов в искомом числе при переводе из 11-16 с.с. в 2 с.с.
+#define MAX_NUM_FRACTION 12
+#define MAX_SYMBOL 14
 static int numeral(char ch, int b1){
     if(ch>='0' && ch<='9')
         return ch-'0';
@@ -14,7 +15,7 @@ static int numeral(char ch, int b1){
     return b1;
 }
 
-int error(int b1, int b2, const char *number){
+static int error(int b1, int b2, const char *number){
   size_t length=strlen(number);
   int second_point=0, point=0;
   if(b1<2 || b1>16 || b2<2 || b2>16)
@@ -34,17 +35,15 @@ int error(int b1, int b2, const char *number){
     }
   }
   if(point!=0)
-  {
     if(number[0]=='0' && point!=1)
       return -1;
-  }
   if(second_point>1)
     return -1;
   else
     return point;
 }
 
-void build_whole(int b1, int b2, const char *number, int point){
+static void build_whole(int b1, int b2, const char *number, int point){
   long long int sum=0;
   if(number[0]=='0')
   {
@@ -74,7 +73,7 @@ void build_whole(int b1, int b2, const char *number, int point){
   }
 }
 
-void build_fraction(int b1, int b2, const char *number, int point){
+static void build_fraction(int b1, const int b2, char *number, int point){
   double sum=0;
   size_t length=strlen(number);
   int j=0;
@@ -88,7 +87,7 @@ void build_fraction(int b1, int b2, const char *number, int point){
     return;
   sum/=pow((double)b1, (double)j);
   printf(".");
-  for(int i=0; i<12; i++) {
+  for(int i=0; i<MAX_NUM_FRACTION; i++) {
     if (sum == 0)
       return;
     sum *= b2;
@@ -103,7 +102,7 @@ void build_fraction(int b1, int b2, const char *number, int point){
 int main(){
   int b1=0, b2=0;
   scanf("%d%d", &b1, &b2);
-  char number[14]="";
+  char number[MAX_SYMBOL]="";
   scanf("%13s", number);
   int point=error(b1, b2, number);
   if(point==-1)
